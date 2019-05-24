@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-int hello_lambda()
+int hello_lambda(int argc, char* argv[])
 {
     std::cout << "Hello World!\n"; 
 

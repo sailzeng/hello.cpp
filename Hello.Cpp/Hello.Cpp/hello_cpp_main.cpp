@@ -5,7 +5,10 @@
 
 int main(int argc, char* argv[])
 {
-	hello_align(argc, argv);
+	hello_chrono_duration(argc, argv);
+	hello_chrono_timepoint(argc, argv);
+	hello_chrono_clock(argc, argv);
+	hello_progress_timer(argc, argv);
 	return 0;
 }
 

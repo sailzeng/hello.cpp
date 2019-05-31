@@ -38,3 +38,5 @@ int hello_align(int argc, char* argv[]);
 
 int hello_progress_timer(int argc, char* argv[]);
 
+int test_unique_ptr(int argc, char* argv[]);
+

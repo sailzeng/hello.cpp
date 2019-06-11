@@ -106,6 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,9 +153,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="hello_cpp_chrono.cpp" />
+    <ClCompile Include="hello_cpp_function_bind.cpp" />
     <ClCompile Include="hello_cpp_lambda.cpp" />
     <ClCompile Include="hello_cpp_main.cpp" />
     <ClCompile Include="hello_cpp_smart_pointer.cpp" />
+    <ClCompile Include="hello_cpp_tuple_optionl_any_variant.cpp" />
+    <ClCompile Include="hello_cpp_variadic_template.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hello_cpp_main.h" />

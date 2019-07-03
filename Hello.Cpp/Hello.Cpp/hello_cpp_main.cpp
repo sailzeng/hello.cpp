@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[])
 {
-    test_variant2(argc, argv);
+    test_variadic(argc, argv);
 	//hello_chrono_duration(argc, argv);
 	//hello_chrono_timepoint(argc, argv);
 	//hello_chrono_clock(argc, argv);

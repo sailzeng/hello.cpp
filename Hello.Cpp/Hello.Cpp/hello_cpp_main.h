@@ -45,3 +45,12 @@ int test_any(int argc, char* argv[]);
 
 int test_variant(int argc, char* argv[]);
 int test_variant2(int argc, char* argv[]);
+
+int test_priority_queue(int argc,char* argv[]);
+
+
+int test_bind_2(int argc,char* argv[]);
+int test_bind_1(int argc,char* argv[]);
+
+
+int test_variadic(int argc,char* argv[]);

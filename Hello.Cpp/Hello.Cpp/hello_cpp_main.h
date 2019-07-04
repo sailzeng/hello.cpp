@@ -54,3 +54,4 @@ int test_bind_1(int argc,char* argv[]);
 
 
 int test_variadic(int argc,char* argv[]);
+int test_variadic2(int argc,char* argv[]);

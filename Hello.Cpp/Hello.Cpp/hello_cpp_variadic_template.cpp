@@ -3,8 +3,8 @@
 #include <iostream>
 
 
-template < typename ... T>
-void dummy_wrapper(T... t)
+template <typename T,typename... TList>
+void dummy_wrapper(T t,TList... tlist)
 {
 };
 
@@ -15,11 +15,11 @@ T unpacker(const T t)
     return t;
 }
 
-
-template < typename... Args>
-void write_line(const Args& ... data)
+//
+template <typename Arg, typename... ArgsList>
+void write_line(const Arg &data,const ArgsList& ... datalist)
 {
-    dummy_wrapper(unpacker(data)...);
+    dummy_wrapper(unpacker(data),unpacker(datalist)...);
     std::cout << '\n';
 }
 
@@ -29,35 +29,36 @@ int test_variadic(int argc,char* argv[])
     return 0;
 }
 
-
-template <typename ... Tlist>
-void dummy_wrapper(Tlist... tlst)
-{
-};
-
-template <typename T,typename ... Tlist>
-void dummy_wrapper(T t,Tlist... tlst)
-{
-    unpacker(t);
-    dummy_wrapper(tlst...);
-};
-
+//----------------------------------------------------------------
 template <class T>
-T unpacker(const T t)
+T unpacker2(const T t)
 {
     std::cout << '[' << t << ']';
     return t;
 }
 
-template <typename... Args>
-void write_line(const Args& ... data)
+//ÊÊÅä0¸ö²ÎÊı
+template <typename ... Tlist>
+void dummy_wrapper2(Tlist... tlst)
 {
-    dummy_wrapper(data...);
+};
+
+template <typename T,typename ... Tlist>
+void dummy_wrapper2(T t,Tlist... tlst)
+{
+    unpacker2(t);
+    dummy_wrapper2(tlst...);
+};
+
+template <typename... Args>
+void write_line2(const Args& ... data)
+{
+    dummy_wrapper2(data...);
     std::cout << '\n';
 }
 
 int test_variadic2(int argc,char* argv[])
 {
-    write_line(1,"--","2.2.2","--",3.0);
+    write_line2(1,"--","2.2.2","--",3.0);
     return 0;
 }

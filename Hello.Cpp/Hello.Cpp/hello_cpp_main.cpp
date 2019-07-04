@@ -1,11 +1,13 @@
 // Hello.Cpp.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
+#include <iostream>
 #include "hello_cpp_main.h"
 
 int main(int argc, char* argv[])
 {
     test_variadic(argc, argv);
+    std::cout << "--------------------------------" << std::endl;
+    test_variadic2(argc,argv);
 	//hello_chrono_duration(argc, argv);
 	//hello_chrono_timepoint(argc, argv);
 	//hello_chrono_clock(argc, argv);

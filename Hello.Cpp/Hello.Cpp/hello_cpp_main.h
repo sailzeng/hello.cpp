@@ -50,8 +50,11 @@ int test_priority_queue(int argc,char* argv[]);
 
 
 int test_bind_2(int argc,char* argv[]);
-int test_bind_1(int argc,char* argv[]);
+int test_bind_3(int argc,char* argv[]);
 
 
 int test_variadic(int argc,char* argv[]);
 int test_variadic2(int argc,char* argv[]);
+int test_variadic3(int argc,char* argv[]);
+int test_variadic4(int argc,char* argv[]);
+int test_variadic5(int argc,char* argv[]);

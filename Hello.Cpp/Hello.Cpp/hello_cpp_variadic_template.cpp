@@ -30,6 +30,7 @@ void write_line(const ArgsList& ...datalist)
 //这儿的函数输出都是颠倒的，可以认为VC++对于参数展开的顺序都是从右向左
 int test_variadic(int argc,char* argv[])
 {
+    std::cout<<__func__<<std::endl;
     write_line(1,"--","2.2.2","--",3.0);
 
     int i = 0;
@@ -94,6 +95,7 @@ void write_line2(const Args& ... data)
 
 int test_variadic2(int argc,char* argv[])
 {
+    std::cout<<__func__<<std::endl;
     write_line2(1,"--","2.2.2","--",3.0);
     int i = 0;
     write_line2(i++,"--",i++,"--",i++);
@@ -179,6 +181,7 @@ void write_line3(const ArgsList& ...datalist)
 
 int test_variadic3(int argc,char* argv[])
 {
+    std::cout<<__func__<<std::endl;
     write_line3(1,"--","2.2.2","--",3.0);
     return 0;
 }
@@ -273,6 +276,7 @@ void write_line5(const ArgsList& ...datalist)
 //这儿的函数输出都是颠倒的，可以认为VC++对于参数展开的顺序都是从右向左
 int test_variadic5(int argc,char* argv[])
 {
+    std::cout<<__func__<<std::endl;
     write_line5(1,"--","2.2.2","--",3.0);
     int i = 0;
     write_line5(i++,i++,i++,i++,i++);

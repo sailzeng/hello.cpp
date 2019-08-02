@@ -10,6 +10,15 @@
 
 using std::any;
 
+int test_tuple_init(int argc,char* argv[])
+{
+    std::tuple <int,double> a;
+    a={1,1.002};
+
+    return 0;
+}
+
+#if 1
 struct TEST_A
 {
     int a_;
@@ -194,3 +203,8 @@ int test_optional(int argc, char* argv[])
 
     return 0;
 }
+
+#endif 
+
+
+

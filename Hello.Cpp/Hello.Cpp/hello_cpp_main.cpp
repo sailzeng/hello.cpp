@@ -5,6 +5,8 @@
 
 int main(int argc, char* argv[])
 {
+    std::cout<<"C++ __cplusplus:"<<__cplusplus<<std::endl;
+
     test_bind_3(argc,argv);
     test_variadic(argc, argv);
     std::cout << "--------------------------------" << std::endl;

@@ -167,7 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hello_cpp_main.h" />
-    <ClInclude Include="hello_cpp_variadic_template.h" />
+    <ClInclude Include="hello_cpp_atomic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Hello.Cpp.rc" />

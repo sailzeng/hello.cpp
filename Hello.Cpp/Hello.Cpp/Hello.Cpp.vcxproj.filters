@@ -43,7 +43,7 @@
     <ClInclude Include="hello_cpp_main.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="hello_cpp_variadic_template.h">
+    <ClInclude Include="hello_cpp_atomic.cpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

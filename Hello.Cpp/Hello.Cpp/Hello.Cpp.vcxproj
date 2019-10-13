@@ -156,18 +156,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="hello_cpp_chrono.cpp" />
-    <ClCompile Include="hello_cpp_function_bind.cpp" />
+    <ClCompile Include="hello_cpp_bind_function.cpp" />
     <ClCompile Include="hello_cpp_lambda.cpp" />
     <ClCompile Include="hello_cpp_main.cpp" />
     <ClCompile Include="hello_cpp_priority_queue.cpp" />
     <ClCompile Include="hello_cpp_rvalue_reference.cpp" />
     <ClCompile Include="hello_cpp_smart_pointer.cpp" />
+    <ClCompile Include="hello_cpp_thread_local.cpp" />
     <ClCompile Include="hello_cpp_tuple_optionl_any_variant.cpp" />
     <ClCompile Include="hello_cpp_variadic_template.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hello_cpp_main.h" />
-    <ClInclude Include="hello_cpp_atomic.cpp" />
+    <ClCompile Include="hello_cpp_atomic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Hello.Cpp.rc" />

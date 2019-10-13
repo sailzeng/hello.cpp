@@ -23,9 +23,6 @@
     <ClCompile Include="hello_cpp_smart_pointer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_function_bind.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="hello_cpp_tuple_optionl_any_variant.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -38,12 +35,18 @@
     <ClCompile Include="hello_cpp_rvalue_reference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hello_cpp_atomic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hello_cpp_bind_function.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hello_cpp_thread_local.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hello_cpp_main.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="hello_cpp_atomic.cpp">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

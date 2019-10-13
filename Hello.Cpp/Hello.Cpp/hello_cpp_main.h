@@ -58,3 +58,9 @@ int test_variadic2(int argc,char* argv[]);
 int test_variadic3(int argc,char* argv[]);
 int test_variadic4(int argc,char* argv[]);
 int test_variadic5(int argc,char* argv[]);
+
+
+int test_atomic_rings(int argc,char* argv[]);
+
+
+int test_thread_local(int argc,char* argv[]);

@@ -7,7 +7,12 @@ int main(int argc, char* argv[])
 {
     std::cout<<"C++ __cplusplus:"<<__cplusplus<<std::endl;
 
-    test_bind_3(argc,argv);
+    test_thread_local(argc,argv);
+    std::cout<<"--------------------------------"<<std::endl;
+
+    /*
+    test_atomic_rings(argc,argv);
+    std::cout<<"--------------------------------"<<std::endl;
     test_variadic(argc, argv);
     std::cout << "--------------------------------" << std::endl;
     test_variadic2(argc,argv);
@@ -17,6 +22,8 @@ int main(int argc, char* argv[])
     test_variadic4(argc,argv);
     std::cout << "--------------------------------" << std::endl;
     test_variadic5(argc,argv);
+    */
+
 	//hello_chrono_duration(argc, argv);
 	//hello_chrono_timepoint(argc, argv);
 	//hello_chrono_clock(argc, argv);

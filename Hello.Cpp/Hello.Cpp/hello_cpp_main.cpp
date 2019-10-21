@@ -6,8 +6,8 @@
 int main(int argc, char* argv[])
 {
     std::cout<<"C++ __cplusplus:"<<__cplusplus<<std::endl;
-
-    test_thread_local(argc,argv);
+    hello_align(argc,argv);
+    
     std::cout<<"--------------------------------"<<std::endl;
 
     /*
@@ -24,6 +24,7 @@ int main(int argc, char* argv[])
     test_variadic5(argc,argv);
     */
 
+    //test_thread_local(argc,argv);
 	//hello_chrono_duration(argc, argv);
 	//hello_chrono_timepoint(argc, argv);
 	//hello_chrono_clock(argc, argv);

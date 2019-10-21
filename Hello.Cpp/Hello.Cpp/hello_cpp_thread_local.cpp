@@ -12,6 +12,7 @@ void increase_rage(const std::string& thread_name)
 {
     for(int i=0;i<9000;++i)
     {
+        //每个线程都会独立保持一个rage
         ++rage;
         // 在锁外修改 OK；
 
@@ -24,6 +25,8 @@ void increase_rage(const std::string& thread_name)
 
 int test_thread_local(int argc,char* argv[])
 {
+    thread_local unsigned int rage_test=2;
+
     std::thread a(increase_rage,"a"),b(increase_rage,"b");
 
     {

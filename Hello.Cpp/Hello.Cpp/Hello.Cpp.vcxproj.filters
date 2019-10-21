@@ -44,6 +44,9 @@
     <ClCompile Include="hello_cpp_thread_local.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hello_cpp_align.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hello_cpp_main.h">

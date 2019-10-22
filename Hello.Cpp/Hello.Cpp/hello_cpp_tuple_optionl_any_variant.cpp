@@ -8,6 +8,7 @@
 #include <functional>
 #include <optional>
 
+//any是一个存放任意数据的实现。
 using std::any;
 
 int test_tuple_init(int argc,char* argv[])
@@ -70,6 +71,7 @@ int test_any(int argc, char* argv[])
 	return 0;
 }
 
+//tuple将返回值灵活话了。
 std::tuple<double, char, std::string> get_student(int id)
 {
 	if (id == 0) return std::make_tuple(3.8, 'A', "Lisa Simpson");

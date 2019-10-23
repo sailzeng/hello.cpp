@@ -6,7 +6,7 @@
 int main(int argc, char* argv[])
 {
     std::cout<<"C++ __cplusplus:"<<__cplusplus<<std::endl;
-    hello_align(argc,argv);
+    hello_weak_ptr(argc,argv);
     
     std::cout<<"--------------------------------"<<std::endl;
 

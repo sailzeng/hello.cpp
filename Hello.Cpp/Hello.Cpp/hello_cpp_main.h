@@ -64,3 +64,10 @@ int test_atomic_rings(int argc,char* argv[]);
 
 
 int test_thread_local(int argc,char* argv[]);
+
+
+int hello_share_ptr_1(int argc,char* argv[]);
+int hello_share_ptr_2(int argc,char* argv[]);
+
+
+int hello_weak_ptr(int argc,char* argv[]);

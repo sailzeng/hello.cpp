@@ -177,5 +177,48 @@ int hello_weak_ptr(int argc,char* argv[])
 }
 
 
+//如何避免交叉引用
+class ClassB;
+class ClassA
+{
+public:
+    ClassA() 
+    { 
+        std::cout<<"ClassA Constructor..."<<std::endl;
+    }
+    ~ClassA() 
+    {
+        std::cout<<"ClassA Destructor..."<<std::endl;
+    }
+    // 在A中引用B
+    std::weak_ptr<ClassB> pb_;
+    //如果换成 shared_ptr<ClassB> pb_;  就会出现内存泄漏
+};
+
+class ClassB
+{
+public:
+    ClassB() 
+    { 
+        std::cout<<"ClassB Constructor..."<<std::endl; 
+    }
+    ~ClassB() 
+    { 
+        std::cout<<"ClassB Destructor..."<<std::endl; 
+    }
+    // 在B中引用A
+    std::weak_ptr<ClassA> pa_;  
+    //如果换成 shared_ptr<ClassA> pa_;  就会出现内存泄漏
+};
+
+int hello_weak_ptr_2(int argc,char* argv[])
+{
+    std::shared_ptr<ClassA> spa=std::make_shared<ClassA>();
+    std::shared_ptr<ClassB> spb=std::make_shared<ClassB>();
+    spa->pb_=spb;
+    spb->pa_=spa;
+    // 函数结束，思考一下：spa和spb会释放资源么？
+    return 0;
+}
 
 

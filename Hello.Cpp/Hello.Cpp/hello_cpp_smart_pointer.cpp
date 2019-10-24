@@ -1,9 +1,13 @@
 
 #define _SILENCE_CXX17_SHARED_PTR_UNIQUE_DEPRECATION_WARNING
 
-#include <memory>
-#include <string>
 #include <iostream>
+#include <vector>
+#include <memory>
+#include <cstdio>
+#include <fstream>
+#include <cassert>
+#include <functional>
 
 //auto_ptr的问题。
 //1. 两个auto_ptr指向同一块内存，造成多次释放
@@ -222,3 +226,112 @@ int hello_weak_ptr_2(int argc,char* argv[])
 }
 
 
+//unique_ptr
+
+int hello_unique_ptr(int argc,char* argv[])
+{
+
+    std::unique_ptr<int> up_p1(new int(1024));
+    //会出错
+    //std::unique_ptr<int> one(up_p1); 
+    //会出错
+    //std::unique_ptr<int> two=up_p1; 
+    //C++ 14
+    auto up_p2 =std::make_unique<int>(1024);
+
+    //可以构造数值
+    std::unique_ptr<int[]> up_p3(new int[1024]{0});
+
+    return 0;
+}
+
+
+struct Up_B
+{
+    virtual void bar() 
+    { 
+        std::cout<<"B::bar\n"; 
+    }
+    virtual ~Up_B()=default;
+};
+struct Up_D: Up_B
+{
+    Up_D() 
+    {
+        std::cout<<"D::D\n";
+    }
+    ~Up_D() 
+    {
+        std::cout<<"D::~D\n";
+    }
+    void bar() override 
+    {
+        std::cout<<"D::bar\n";
+    }
+};
+
+// a function consuming a unique_ptr can take it by value or by rvalue reference
+std::unique_ptr<Up_D> pass_through(std::unique_ptr<Up_D> p)
+{
+    p->bar();
+    return p;
+}
+
+void close_file(std::FILE* fp) 
+{ 
+    std::fclose(fp); 
+}
+
+int test_unique_ptr_2(int argc,char* argv[])
+{
+    std::cout<<"unique ownership semantics demo\n";
+    {
+        auto p=std::make_unique<Up_D>(); // p is a unique_ptr that owns a D
+        auto q=pass_through(std::move(p));
+        assert(!p); // now p owns nothing and holds a null pointer
+        q->bar();   // and q owns the D object
+    } // ~D called here
+
+    //如何放入容器。以及多态
+    std::cout<<"Runtime polymorphism demo\n";
+    {
+        std::unique_ptr<Up_B> p=std::make_unique<Up_D>(); // p is a unique_ptr that owns a D
+                                                      // as a pointer to base
+        p->bar(); // virtual dispatch
+
+        std::vector<std::unique_ptr<Up_B>> v;  // unique_ptr can be stored in a container
+        v.push_back(std::make_unique<Up_D>());
+        v.push_back(std::move(p));
+        v.emplace_back(new Up_D);
+        for(auto& p:v) 
+            p->bar(); 
+        // virtual dispatch
+    } // ~D called 3 times
+
+    std::cout<<"Custom deleter demo\n";
+    std::ofstream("demo.txt")<<'x'; // prepare the file to read
+    {
+        std::unique_ptr<std::FILE,decltype(&close_file)> fp(std::fopen("demo.txt","r"),
+                                                            &close_file);
+        if(fp) // fopen could have failed; in which case fp holds a null pointer
+            std::cout<<(char)std::fgetc(fp.get())<<'\n';
+    } // fclose() called here, but only if FILE* is not a null pointer
+      // (that is, if fopen succeeded)
+
+    std::cout<<"Custom lambda-expression deleter demo\n";
+    {
+        std::unique_ptr<Up_D,std::function<void(D*)>> p(new Up_D,[](D* ptr)
+                                                     {
+                                                         std::cout<<"destroying from a custom deleter...\n";
+                                                         delete ptr;
+                                                     });  // p owns D
+        p->bar();
+    } // the lambda above is called and D is destroyed
+
+    std::cout<<"Array form of unique_ptr demo\n";
+    {
+        std::unique_ptr<Up_D[]> p{new Up_D[3]};
+    } // calls ~D 3 times
+
+    return 0;
+}

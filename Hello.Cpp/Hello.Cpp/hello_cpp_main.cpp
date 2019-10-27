@@ -6,11 +6,12 @@
 int main(int argc, char* argv[])
 {
     std::cout<<"C++ __cplusplus:"<<__cplusplus<<std::endl;
-    hello_weak_ptr(argc,argv);
+    hello_perfect_forward(argc,argv);
     
     std::cout<<"--------------------------------"<<std::endl;
 
     /*
+    hello_weak_ptr(argc,argv);
     test_atomic_rings(argc,argv);
     std::cout<<"--------------------------------"<<std::endl;
     test_variadic(argc, argv);

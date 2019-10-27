@@ -1,6 +1,6 @@
 
 #define _SILENCE_CXX17_SHARED_PTR_UNIQUE_DEPRECATION_WARNING
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -8,6 +8,9 @@
 #include <fstream>
 #include <cassert>
 #include <functional>
+
+#include <stdio.h>
+
 
 //auto_ptr的问题。
 //1. 两个auto_ptr指向同一块内存，造成多次释放
@@ -311,7 +314,7 @@ int test_unique_ptr_2(int argc,char* argv[])
     std::cout<<"Custom deleter demo\n";
     std::ofstream("demo.txt")<<'x'; // prepare the file to read
     {
-        std::unique_ptr<std::FILE,decltype(&close_file)> fp(std::fopen("demo.txt","r"),
+        std::unique_ptr<std::FILE,decltype(&close_file)> fp(fopen("demo.txt","r"),
                                                             &close_file);
         if(fp) // fopen could have failed; in which case fp holds a null pointer
             std::cout<<(char)std::fgetc(fp.get())<<'\n';
@@ -320,7 +323,7 @@ int test_unique_ptr_2(int argc,char* argv[])
 
     std::cout<<"Custom lambda-expression deleter demo\n";
     {
-        std::unique_ptr<Up_D,std::function<void(D*)>> p(new Up_D,[](D* ptr)
+        std::unique_ptr<Up_D,std::function<void(Up_D*)>> p(new Up_D,[](Up_D* ptr)
                                                      {
                                                          std::cout<<"destroying from a custom deleter...\n";
                                                          delete ptr;

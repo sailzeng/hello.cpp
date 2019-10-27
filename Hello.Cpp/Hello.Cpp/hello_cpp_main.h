@@ -71,3 +71,6 @@ int hello_share_ptr_2(int argc,char* argv[]);
 
 
 int hello_weak_ptr(int argc,char* argv[]);
+
+
+int hello_perfect_forward(int argc,char* argv[]);

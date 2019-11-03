@@ -31,3 +31,34 @@ int hello_lambda(int argc, char* argv[])
 
 }
 
+
+void f1(int (*)(int)) {}
+void f2(char (*)(int)) {}
+void h(int (*)(int)) {} // #1
+void h(char (*)(int)) {} // #2
+
+int hello_lambda_2(int argc,char* argv[])
+{
+    // 泛型 lambda，operator() 是有两个形参的模板
+    auto glambda=[](auto a,auto&& b) { return a<b; };
+    bool b=glambda(3,3.14); // ok
+
+
+    
+    auto glambda3=[](auto a) { return a; };
+
+    f1(glambda3); // ok
+    //f2(glambda3); // error: not convertible
+    h(glambda3); // ok: calls #1 since #2 is not convertible
+
+    int& (*fpi)(int*)=[](auto* a)->auto & { return *a; }; // ok
+
+    // generic lambda, operator() is a template with two parameters
+    //C++ 20
+    //auto glambda2=[]<class T>(T a,auto&&b) { return a<b; };
+
+    // 输出：20 100
+    return 0;
+
+}
+

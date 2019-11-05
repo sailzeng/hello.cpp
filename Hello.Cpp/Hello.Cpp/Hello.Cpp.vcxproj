@@ -156,13 +156,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="hello_cpp_align.cpp" />
+    <ClCompile Include="hello_cpp_auto_delctype.cpp" />
     <ClCompile Include="hello_cpp_chrono.cpp" />
     <ClCompile Include="hello_cpp_bind_function.cpp" />
     <ClCompile Include="hello_cpp_lambda.cpp" />
     <ClCompile Include="hello_cpp_main.cpp" />
+    <ClCompile Include="hello_cpp_noexcept_final_override.cpp" />
     <ClCompile Include="hello_cpp_priority_queue.cpp" />
     <ClCompile Include="hello_cpp_rvalue_reference.cpp" />
     <ClCompile Include="hello_cpp_smart_pointer.cpp" />
+    <ClCompile Include="hello_cpp_thread.cpp" />
     <ClCompile Include="hello_cpp_thread_local.cpp" />
     <ClCompile Include="hello_cpp_tuple_optionl_any_variant.cpp" />
     <ClCompile Include="hello_cpp_variadic_template.cpp" />

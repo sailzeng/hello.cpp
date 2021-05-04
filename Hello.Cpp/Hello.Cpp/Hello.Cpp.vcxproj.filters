@@ -62,6 +62,9 @@
     <ClCompile Include="hello_cpp_coroutine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hello_cpp_constexpr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hello_cpp_main.h">

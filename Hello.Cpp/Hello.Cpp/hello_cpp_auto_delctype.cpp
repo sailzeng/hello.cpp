@@ -36,7 +36,7 @@ int test_decltype_1()
 int i=4;
 
 decltype(i) a;      // a: int
-decltype((i)) b;    // b: int &, 无法编译通过
+//decltype((i)) b;    // b: int &, 无法编译通过
 
 int arr[5]={0};
 int* ptr=arr;

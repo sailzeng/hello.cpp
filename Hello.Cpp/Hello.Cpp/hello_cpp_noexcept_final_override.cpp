@@ -118,7 +118,10 @@ struct Object
 
 struct Base: public Object
 {
-    void fun() final;   // 声明为final
+    // 声明为final，不能再重载了
+    void fun() final
+    {
+    };
 };
 
 struct Derived: public Base

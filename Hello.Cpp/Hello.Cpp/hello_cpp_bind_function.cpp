@@ -21,9 +21,10 @@ struct Foo {
     int data = 10;
 };
 
-int test_bind()
+int test_bind(int argc,char *argv[])
 {
-    using namespace std::placeholders;  // for _1, _2, _3...
+    // for _1, _2, _3...
+    using namespace std::placeholders;  
 
     // demonstrates argument reordering and pass-by-reference
     int n = 7;
@@ -38,6 +39,7 @@ int test_bind()
     auto f2 = std::bind(f,_3,std::bind(g,_3),_3,4,5);
     f2(10,11,12); // makes a call to f(12, g(12), 12, 4, 5);
 
+    //显示如何处理随机数
     // common use case: binding a RNG with a distribution
     std::default_random_engine e;
     std::uniform_int_distribution<> d(0,10);
@@ -66,7 +68,7 @@ class Test_BindA
 {
 public:
 
-    //显然模版可以提供更大的灵活性
+    //显然模版可以提供更大的灵活性，runfun 是函数
     template <typename runfun>
     int run_template_fun(runfun run)
     {

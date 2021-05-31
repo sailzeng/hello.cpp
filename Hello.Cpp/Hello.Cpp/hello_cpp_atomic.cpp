@@ -379,21 +379,21 @@ struct D
 
 int test_atomic_islockfree(int argc, char* argv[])
 {
-    std::cout << std::boolalpha << "" << std::atomic<A>{}.is_lock_free() << std::endl;
-    std::cout << std::boolalpha << "" << std::atomic<A>::is_always_lock_free << std::endl;
+    std::cout << std::boolalpha << "A " << std::atomic<A>{}.is_lock_free() << std::endl;
+    std::cout << std::boolalpha << "A " << std::atomic<A>::is_always_lock_free << std::endl;
 
-    std::cout << std::boolalpha << "" << std::atomic<B>{}.is_lock_free() << std::endl;
-    std::cout << std::boolalpha << "" << std::atomic<B>::is_always_lock_free << std::endl;
+    std::cout << std::boolalpha << "B " << std::atomic<B>{}.is_lock_free() << std::endl;
+    std::cout << std::boolalpha << "B " << std::atomic<B>::is_always_lock_free << std::endl;
 
-    std::cout << std::boolalpha << "" << std::atomic<C>{}.is_lock_free() << std::endl;
-    std::cout << std::boolalpha << "" << std::atomic<C>::is_always_lock_free << std::endl;
+    std::cout << std::boolalpha << "C " << std::atomic<C>{}.is_lock_free() << std::endl;
+    std::cout << std::boolalpha << "C " << std::atomic<C>::is_always_lock_free << std::endl;
 
-    std::cout << std::boolalpha << "" << std::atomic<D>{}.is_lock_free() << std::endl;
-    std::cout << std::boolalpha << "" << std::atomic<D>::is_always_lock_free << std::endl;
+    std::cout << std::boolalpha << "D " << std::atomic<D>{}.is_lock_free() << std::endl;
+    std::cout << std::boolalpha << "D " << std::atomic<D>::is_always_lock_free << std::endl;
 
     //
-    std::cout << std::boolalpha << "" << std::atomic<int *>{}.is_lock_free() << std::endl;
-    std::cout << std::boolalpha << "" << std::atomic<int *>::is_always_lock_free << std::endl;
+    std::cout << std::boolalpha << "int *" << std::atomic<int *>{}.is_lock_free() << std::endl;
+    std::cout << std::boolalpha << "int *" << std::atomic<int *>::is_always_lock_free << std::endl;
 
     return 0;
 }

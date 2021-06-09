@@ -6,7 +6,7 @@
 int main(int argc, char* argv[])
 {
     std::cout << "C++ __cplusplus:" << __cplusplus << std::endl;
-    test_atomic_islockfree(argc, argv);
+    hello_random(argc, argv);
 
     std::cout << "--------------------------------" << std::endl;
 

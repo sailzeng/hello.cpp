@@ -159,27 +159,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="hello_cpp_align.cpp" />
-    <ClCompile Include="hello_cpp_auto_delctype.cpp" />
-    <ClCompile Include="hello_cpp_chrono.cpp" />
-    <ClCompile Include="hello_cpp_bind_function.cpp" />
-    <ClCompile Include="hello_cpp_constexpr.cpp" />
-    <ClCompile Include="hello_cpp_coroutine.cpp" />
-    <ClCompile Include="hello_cpp_enum_class.cpp" />
-    <ClCompile Include="hello_cpp_lambda.cpp" />
-    <ClCompile Include="hello_cpp_main.cpp" />
-    <ClCompile Include="hello_cpp_noexcept_final_override.cpp" />
-    <ClCompile Include="hello_cpp_priority_queue.cpp" />
-    <ClCompile Include="hello_cpp_rvalue_reference.cpp" />
-    <ClCompile Include="hello_cpp_smart_pointer.cpp" />
-    <ClCompile Include="hello_cpp_thread.cpp" />
-    <ClCompile Include="hello_cpp_thread_local.cpp" />
-    <ClCompile Include="hello_cpp_tuple_optionl_any_variant.cpp" />
-    <ClCompile Include="hello_cpp_variadic_template.cpp" />
+    <ClCompile Include="align.cpp" />
+    <ClCompile Include="auto_delctype.cpp" />
+    <ClCompile Include="chrono.cpp" />
+    <ClCompile Include="bind_function.cpp" />
+    <ClCompile Include="constexpr.cpp" />
+    <ClCompile Include="coroutine.cpp" />
+    <ClCompile Include="enum_class.cpp" />
+    <ClCompile Include="lambda.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="noexcept_final_override.cpp" />
+    <ClCompile Include="priority_queue.cpp" />
+    <ClCompile Include="rvalue_reference.cpp" />
+    <ClCompile Include="smart_pointer.cpp" />
+    <ClCompile Include="thread.cpp" />
+    <ClCompile Include="thread_local.cpp" />
+    <ClCompile Include="tuple_optionl_any_variant.cpp" />
+    <ClCompile Include="variadic_template.cpp" />
+    <ClCompile Include="promise_future.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="hello_cpp_main.h" />
-    <ClCompile Include="hello_cpp_atomic.cpp" />
+    <ClInclude Include="main.h" />
+    <ClCompile Include="atomic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Hello.Cpp.rc" />

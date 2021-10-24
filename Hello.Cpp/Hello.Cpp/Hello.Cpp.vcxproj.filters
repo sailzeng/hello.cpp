@@ -11,63 +11,66 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="hello_cpp_lambda.cpp">
+    <ClCompile Include="lambda.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_chrono.cpp">
+    <ClCompile Include="chrono.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_smart_pointer.cpp">
+    <ClCompile Include="smart_pointer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_tuple_optionl_any_variant.cpp">
+    <ClCompile Include="tuple_optionl_any_variant.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_variadic_template.cpp">
+    <ClCompile Include="variadic_template.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_priority_queue.cpp">
+    <ClCompile Include="priority_queue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_rvalue_reference.cpp">
+    <ClCompile Include="rvalue_reference.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_atomic.cpp">
+    <ClCompile Include="atomic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_bind_function.cpp">
+    <ClCompile Include="bind_function.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_thread_local.cpp">
+    <ClCompile Include="thread_local.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_align.cpp">
+    <ClCompile Include="align.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_thread.cpp">
+    <ClCompile Include="thread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_auto_delctype.cpp">
+    <ClCompile Include="auto_delctype.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_noexcept_final_override.cpp">
+    <ClCompile Include="noexcept_final_override.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_enum_class.cpp">
+    <ClCompile Include="enum_class.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_coroutine.cpp">
+    <ClCompile Include="coroutine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hello_cpp_constexpr.cpp">
+    <ClCompile Include="constexpr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="promise_future.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="hello_cpp_main.h">
+    <ClInclude Include="main.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

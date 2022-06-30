@@ -24,7 +24,7 @@ class multiobjs_pool
 int main(int argc, char* argv[])
 {
     std::cout << "C++ __cplusplus:" << __cplusplus << std::endl;
-    hello_perfect_forward(argc, argv);
+    test_coro_main2(argc, argv);
 
     std::cout << "--------------------------------" << std::endl;
 

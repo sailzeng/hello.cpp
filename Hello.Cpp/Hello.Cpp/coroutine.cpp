@@ -1,31 +1,29 @@
-#include <experimental/coroutine>
+#include <coroutine>
 #include <iostream>
 #include <stdexcept>
 #include <thread>
-#include <iostream>
-#include <experimental/coroutine>
-using namespace std;
+
 
 struct test
 {
     // inner types
     struct promise_type;
-    using handle_type = std::experimental::coroutine_handle<promise_type>; //type alias
+    using handle_type = std::coroutine_handle<promise_type>; //type alias
 
                                                                            // functions
     test(handle_type h) :handle(h) {
-        cout << "# Created a Test object\n";
+        std::cout << "# Created a Test object\n";
     }
-    test(const test &s) = delete;
-    test &operator=(const test &) = delete;
-    test(test &&s) :handle(s.handle) {
+    test(const test& s) = delete;
+    test& operator=(const test&) = delete;
+    test(test&& s) :handle(s.handle) {
         s.handle = nullptr;
     }
-    test &operator=(test &&s) {
+    test& operator=(test&& s) {
         handle = s.handle; s.handle = nullptr; return *this;
     }
     ~test() {
-        cout << "#Test gone\n"; if (handle) handle.destroy();
+        std::cout << "#Test gone\n"; if (handle) handle.destroy();
     }
 
     int current_value()
@@ -42,29 +40,29 @@ struct test
     struct promise_type
     {
         promise_type() {
-            cout << "@ promise_type created\n";
+            std::cout << "@ promise_type created\n";
         }
         ~promise_type() {
-            cout << "@ promise_type died\n";
+            std::cout << "@ promise_type died\n";
         }
 
         auto get_return_object() //get return object
         {
-            cout << "@ get_return_object called\n";
+            std::cout << "@ get_return_object called\n";
             return test{ handle_type::from_promise(*this) };// pass handle to create "return object"
         }
 
         auto initial_suspend() // called before run coroutine body
         {
-            cout << "@ initial_suspend is called\n";
-            return std::experimental::suspend_never{}; // dont suspend it
+            std::cout << "@ initial_suspend is called\n";
+            return std::suspend_never{}; // dont suspend it
             //return std::experimental::suspend_always{};
         }
 
         auto return_void() // called when just before final_suspend, conflict with return_value
         {
-            cout << "@ return_void is called\n";
-            return std::experimental::suspend_never{}; // dont suspend it
+            std::cout << "@ return_void is called\n";
+            return; // dont suspend it
                                                        //return std::experimental::suspend_always{};
         }
 
@@ -72,13 +70,13 @@ struct test
         {
             std::cout << "yield_value called\n";
             value = t;
-            return std::experimental::suspend_always{};
+            return std::suspend_always{};
         }
 
-        auto final_suspend() // called at the end of coroutine body
+        auto final_suspend() noexcept// called at the end of coroutine body
         {
-            cout << "@ final_suspend is called\n";
-            return std::experimental::suspend_always{};
+            std::cout << "@ final_suspend is called\n";
+            return std::suspend_always{};
         }
 
         void unhandled_exception() // exception handler
@@ -103,22 +101,23 @@ test yield_coroutine(int count)
 void co_vs_yield()
 {
     auto a = yield_coroutine(4);
-    cout << "created a corutine, try to get a value\n";
+    std::cout << "created a corutine, try to get a value\n";
     do
     {
-        cout << "get value " << a.current_value() << endl;
+        std::cout << "get value " << a.current_value() << std::endl;
     } while (a.move_next());
 }
 
-
+int test_coro_main2(int argc, char* argv[])
+{
+    co_vs_yield();
+    return 0;
+}
 
 // ConsoleApplication1.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include <iostream>
 
-#include <coroutine>
-#include <iostream>
 size_t level = 0;
 std::string INDENT = "-";
 
@@ -158,8 +157,8 @@ struct sync
         Trace t;
         std::cout << "Created a sync object" << std::endl;
     }
-    sync(const sync &) = delete;
-    sync(sync &&s)
+    sync(const sync&) = delete;
+    sync(sync&& s)
         : coro(s.coro)
     {
         Trace t;
@@ -173,8 +172,8 @@ struct sync
         if (coro)
             coro.destroy();
     }
-    sync &operator=(const sync &) = delete;
-    sync &operator=(sync &&s)
+    sync& operator=(const sync&) = delete;
+    sync& operator=(sync&& s)
     {
         coro = s.coro;
         s.coro = nullptr;
@@ -240,34 +239,34 @@ struct lazy
 {
     struct promise_type;
     using handle_type = std::coroutine_handle<promise_type>;
-    handle_type coro;
+    handle_type coro_;
 
     lazy(handle_type h)
-        : coro(h)
+        : coro_(h)
     {
         Trace t;
         std::cout << "Created a lazy object" << std::endl;
     }
-    lazy(const lazy &) = delete;
-    lazy(lazy &&s)
-        : coro(s.coro)
+    lazy(const lazy&) = delete;
+    lazy(lazy&& s)
+        : coro_(s.coro_)
     {
         Trace t;
         std::cout << "lazy moved leaving behind a husk" << std::endl;
-        s.coro = nullptr;
+        s.coro_ = nullptr;
     }
     ~lazy()
     {
         Trace t;
         std::cout << "lazy gone" << std::endl;
-        if (coro)
-            coro.destroy();
+        if (coro_)
+            coro_.destroy();
     }
-    lazy &operator=(const lazy &) = delete;
-    lazy &operator=(lazy &&s)
+    lazy& operator=(const lazy&) = delete;
+    lazy& operator=(lazy&& s)
     {
-        coro = s.coro;
-        s.coro = nullptr;
+        coro_ = s.coro_;
+        s.coro_ = nullptr;
         return *this;
     }
 
@@ -275,7 +274,7 @@ struct lazy
     {
         Trace t;
         std::cout << "We got asked for the return value..." << std::endl;
-        return coro.promise().value;
+        return coro_.promise().value;
     }
     struct promise_type
     {
@@ -327,17 +326,17 @@ struct lazy
     };
     bool await_ready()
     {
-        const auto ready = this->coro.done();
+        const auto ready = this->coro_.done();
         Trace t;
         std::cout << "Await " << (ready ? "is ready" : "isn't ready") << std::endl;
-        return this->coro.done();
+        return this->coro_.done();
     }
     void await_suspend(std::coroutine_handle<> awaiting)
     {
         {
             Trace t;
             std::cout << "About to resume the lazy" << std::endl;
-            this->coro.resume();
+            this->coro_.resume();
         }
         Trace t;
         std::cout << "About to resume the awaiter" << std::endl;
@@ -345,7 +344,7 @@ struct lazy
     }
     auto await_resume()
     {
-        const auto r = this->coro.promise().value;
+        const auto r = this->coro_.promise().value;
         Trace t;
         std::cout << "Await value is returned: " << r << std::endl;
         return r;
@@ -364,6 +363,7 @@ lazy<std::string> write_data()
     std::cout << "Write data..." << std::endl;
     co_return "I'm rich!";
 }
+
 sync<int> reply()
 {
     std::cout << "Started await_answer" << std::endl;
@@ -374,7 +374,7 @@ sync<int> reply()
     co_return 42;
 }
 
-int main()
+int test_coro_main(int argc, char* argv[])
 {
     std::cout << "Start main()\n";
     //没有使用co_wait调用。返回的是一个sync<int>

@@ -61,3 +61,6 @@ int hello_weak_ptr(int argc, char* argv[]);
 int hello_perfect_forward(int argc, char* argv[]);
 
 int hello_random(int argc, char* argv[]);
+
+int test_coro_main(int argc, char* argv[]);
+int test_coro_main2(int argc, char* argv[]);

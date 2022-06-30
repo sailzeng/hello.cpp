@@ -50,7 +50,7 @@
     <ClCompile Include="thread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="auto_delctype.cpp">
+    <ClCompile Include="auto_decltype.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="noexcept_final_override.cpp">

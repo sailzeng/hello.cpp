@@ -3,6 +3,24 @@
 #include <iostream>
 #include "main.h"
 
+template< class O >
+class C_O
+{
+
+};
+
+template< class... T >
+class multiobjs_pool
+{
+
+    //!
+
+    //!
+    std::tuple<C_O<T...> > pools_;
+};
+
+
+
 int main(int argc, char* argv[])
 {
     std::cout << "C++ __cplusplus:" << __cplusplus << std::endl;

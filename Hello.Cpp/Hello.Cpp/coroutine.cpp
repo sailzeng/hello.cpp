@@ -39,10 +39,12 @@ struct test
 
     struct promise_type
     {
-        promise_type() {
+        promise_type()
+        {
             std::cout << "@ promise_type created\n";
         }
-        ~promise_type() {
+        ~promise_type()
+        {
             std::cout << "@ promise_type died\n";
         }
 

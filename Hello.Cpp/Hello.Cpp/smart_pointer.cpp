@@ -32,14 +32,14 @@ class Person
 {
 public:
     Person(int v) {
-        value=v;
-        std::cout<<"Cons"<<value<<std::endl;
+        value_=v;
+        std::cout<<"Cons"<<value_<<std::endl;
     }
     ~Person() {
-        std::cout<<"Des"<<value<<std::endl;
+        std::cout<<"Des"<<value_<<std::endl;
     }
 
-    int value;
+    int value_;
 
 };
 

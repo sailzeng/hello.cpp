@@ -11,30 +11,30 @@ struct test
     using handle_type = std::coroutine_handle<promise_type>; //type alias
 
                                                                            // functions
-    test(handle_type h) :handle(h) {
+    test(handle_type h) :handle_(h) {
         std::cout << "# Created a Test object\n";
     }
     test(const test& s) = delete;
     test& operator=(const test&) = delete;
-    test(test&& s) :handle(s.handle) {
-        s.handle = nullptr;
+    test(test&& s) :handle_(s.handle_) {
+        s.handle_ = nullptr;
     }
     test& operator=(test&& s) {
-        handle = s.handle; s.handle = nullptr; return *this;
+        handle_ = s.handle_; s.handle_ = nullptr; return *this;
     }
     ~test() {
-        std::cout << "#Test gone\n"; if (handle) handle.destroy();
+        std::cout << "#Test gone\n"; if (handle_) handle_.destroy();
     }
 
     int current_value()
     {
-        return handle.promise().value;
+        return handle_.promise().value_;
     }
 
     bool move_next()
     {
-        handle.resume();
-        return !handle.done();
+        handle_.resume();
+        return !handle_.done();
     }
 
     struct promise_type
@@ -71,7 +71,7 @@ struct test
         auto yield_value(int t) // called by co_yield()
         {
             std::cout << "yield_value called\n";
-            value = t;
+            value_ = t;
             return std::suspend_always{};
         }
 
@@ -87,11 +87,11 @@ struct test
         }
 
         // data
-        int value;
+        int value_;
     };
 
     // member variables
-    handle_type handle;
+    handle_type handle_;
 };
 test yield_coroutine(int count)
 {
@@ -186,11 +186,11 @@ struct sync
     {
         Trace t;
         std::cout << "We got asked for the return value..." << std::endl;
-        return coro.promise().value;
+        return coro.promise().value_;
     }
     struct promise_type
     {
-        T value;
+        T value_;
         promise_type()
         {
             Trace t;
@@ -220,7 +220,7 @@ struct sync
         {
             Trace t;
             std::cout << "Got an answer of " << v << std::endl;
-            value = v;
+            value_ = v;
             return;
         }
         auto final_suspend() noexcept
@@ -276,11 +276,11 @@ struct lazy
     {
         Trace t;
         std::cout << "We got asked for the return value..." << std::endl;
-        return coro_.promise().value;
+        return coro_.promise().value_;
     }
     struct promise_type
     {
-        T value;
+        T value_;
         promise_type()
         {
             Trace t;
@@ -310,7 +310,7 @@ struct lazy
         {
             Trace t;
             std::cout << "Got an answer of " << v << std::endl;
-            value = v;
+            value_ = v;
             return;
         }
 
@@ -346,7 +346,7 @@ struct lazy
     }
     auto await_resume()
     {
-        const auto r = this->coro_.promise().value;
+        const auto r = this->coro_.promise().value_;
         Trace t;
         std::cout << "Await value is returned: " << r << std::endl;
         return r;

@@ -32,9 +32,9 @@ int test_any(int argc, char* argv[])
 	try {
 
 		// Integer 42:  Using the copy initialisation 
-		std::any value = 42;
+		std::any value_ = 42;
 		std::cout << "Value: "
-			<< std::any_cast<int>(value) << std::endl;
+			<< std::any_cast<int>(value_) << std::endl;
 
 		//bad_any_cast any并不能进行内部转换
 		//std::cout << "Value: "
@@ -42,9 +42,9 @@ int test_any(int argc, char* argv[])
 
 		// Using the assignment operator 
 		// to store a string 
-		value = "Hello World";
+		value_ = "Hello World";
 		std::cout << "Value: "
-			<< std::any_cast<const char*>(value) << std::endl;
+			<< std::any_cast<const char*>(value_) << std::endl;
 
 		// Using the parametrized constructor 
 		any val(19.0);
@@ -177,8 +177,8 @@ auto create2(bool b) {
 
 // std::reference_wrapper may be used to return a reference
 auto create_ref(bool b) {
-    static std::string value = "Godzilla";
-    return b ? std::optional<std::reference_wrapper<std::string>>{value}
+    static std::string value_ = "Godzilla";
+    return b ? std::optional<std::reference_wrapper<std::string>>{value_}
     : std::nullopt;
 }
 
@@ -194,7 +194,7 @@ int test_optional(int argc, char* argv[])
         std::cout << "create2(true) returned " << *str << '\n';
     }
 
-    std::cout << create2(false).value();
+    std::cout << create2(false).value_();
 
     if (auto str = create_ref(true)) {
         // using get() to access the reference_wrapper's value

@@ -109,17 +109,17 @@ private:
 template<typename T>
 void f1(T&& param)
 {
-    if(std::is_same<std::string,T>::value)
+    if(std::is_same<std::string,T>::value_)
         std::cout<<"string"<<std::endl;
-    else if(std::is_same<std::string&,T>::value)
+    else if(std::is_same<std::string&,T>::value_)
         std::cout<<"string&"<<std::endl;
-    else if(std::is_same<std::string&&,T>::value)
+    else if(std::is_same<std::string&&,T>::value_)
         std::cout<<"string&&"<<std::endl;
-    else if(std::is_same<int,T>::value)
+    else if(std::is_same<int,T>::value_)
         std::cout<<"int"<<std::endl;
-    else if(std::is_same<int&,T>::value)
+    else if(std::is_same<int&,T>::value_)
         std::cout<<"int&"<<std::endl;
-    else if(std::is_same<int&&,T>::value)
+    else if(std::is_same<int&&,T>::value_)
         std::cout<<"int&&"<<std::endl;
     else
         std::cout<<"unkown"<<std::endl;

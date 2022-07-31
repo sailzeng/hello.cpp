@@ -136,7 +136,7 @@ auto call_impl(FUNC& f,const PARA& a,std::index_sequence<I...>)
 template<typename FUNC,typename PARA>
 auto call(FUNC& f,const PARA& a)
 {
-    static constexpr auto t_count = std::tuple_size<PARA>::value;
+    static constexpr auto t_count = std::tuple_size<PARA>::value_;
     return call_impl(f,a,std::make_index_sequence<t_count>());
 }
 
@@ -211,7 +211,7 @@ int test_index_sequence(int argc,char* argv[])
     // 转换 array 为 tuple
     auto tuple = a2t(array);
     static_assert(std::is_same<decltype(tuple),
-                  std::tuple<int,int,int,int>>::value,"");
+                  std::tuple<int,int,int,int>>::value_,"");
 
     // 打印到 cout
     std::cout << tuple << '\n';

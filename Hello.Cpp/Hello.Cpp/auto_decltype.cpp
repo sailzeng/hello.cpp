@@ -79,16 +79,16 @@ decltype((Func(1))) var15;      // const bool, ‘≤¿®∫≈ø…“‘∫ˆ¬‘
 
 int test_decltype_2()
 {
-    cout << is_rvalue_reference<decltype(RvalRef())>::value_ << endl;    // 1
+    cout << is_rvalue_reference<decltype(RvalRef())>::value << endl;    // 1
 
-    cout << is_lvalue_reference<decltype(true ? i : i)>::value_ << endl; // 1
-    cout << is_lvalue_reference<decltype((i))>::value_ << endl;          // 1
-    cout << is_lvalue_reference<decltype(++i)>::value_ << endl;          // 1
-    cout << is_lvalue_reference<decltype(arr[3])>::value_ << endl;       // 1
-    cout << is_lvalue_reference<decltype(*ptr)>::value_ << endl;         // 1
-    cout << is_lvalue_reference<decltype("lval")>::value_ << endl;       // 1
+    cout << is_lvalue_reference<decltype(true ? i : i)>::value << endl; // 1
+    cout << is_lvalue_reference<decltype((i))>::value << endl;          // 1
+    cout << is_lvalue_reference<decltype(++i)>::value << endl;          // 1
+    cout << is_lvalue_reference<decltype(arr[3])>::value << endl;       // 1
+    cout << is_lvalue_reference<decltype(*ptr)>::value << endl;         // 1
+    cout << is_lvalue_reference<decltype("lval")>::value << endl;       // 1
 
-    cout << is_lvalue_reference<decltype(i++)>::value_ << endl;          // 0
-    cout << is_rvalue_reference<decltype(i++)>::value_ << endl;          // 0
+    cout << is_lvalue_reference<decltype(i++)>::value << endl;          // 0
+    cout << is_rvalue_reference<decltype(i++)>::value << endl;          // 0
     return 0;
 }

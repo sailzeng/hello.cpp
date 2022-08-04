@@ -64,3 +64,4 @@ int hello_random(int argc, char* argv[]);
 
 int test_coro_main(int argc, char* argv[]);
 int test_coro_main2(int argc, char* argv[]);
+int test_coro_main3(int argc, char* argv[]);

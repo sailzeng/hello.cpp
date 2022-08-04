@@ -24,8 +24,8 @@ class multiobjs_pool
 int main(int argc, char* argv[])
 {
     std::cout << "C++ __cplusplus:" << __cplusplus << std::endl;
-    test_coro_main(argc, argv);
-
+    std::cout << "--------------------------------" << std::endl;
+    test_coro_main3(argc, argv);
     std::cout << "--------------------------------" << std::endl;
 
     /*

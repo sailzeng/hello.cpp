@@ -58,14 +58,14 @@ struct test
         {
             std::cout << "@ initial_suspend is called\n";
             return std::suspend_never{}; // dont suspend it
-            //return std::experimental::suspend_always{};
+            //return std::suspend_always{};
         }
 
         auto return_void() // called when just before final_suspend, conflict with return_value
         {
             std::cout << "@ return_void is called\n";
             return; // dont suspend it
-                                                       //return std::experimental::suspend_always{};
+            //return std::experimental::suspend_always{};
         }
 
         auto yield_value(int t) // called by co_yield()
@@ -98,6 +98,7 @@ test yield_coroutine(int count)
     std::cout << "start yield_coroutine\n";
     for (int i = 0; i < count; i++)
         co_yield i * 2;
+    //注意这儿并没有return
 }
 
 void co_vs_yield()
@@ -313,7 +314,13 @@ struct lazy
             value_ = v;
             return;
         }
-
+        auto yield_value(T v)
+        {
+            Trace t;
+            std::cout << "Got yeild answer of " << v << std::endl;
+            value_ = v;
+            return std::suspend_always{};
+        }
         auto final_suspend() noexcept
         {
             Trace t;
@@ -356,6 +363,8 @@ lazy<std::string> read_data()
 {
     Trace t;
     std::cout << "Reading data..." << std::endl;
+    //co_yield "million$!?";
+
     co_return "billion$!";
 }
 
@@ -396,3 +405,115 @@ int test_coro_main(int argc, char* argv[])
 //   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
 //   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
 
+template <typename T>
+struct coro_ret
+{
+    struct promise_type;
+    using handle_type = std::coroutine_handle<promise_type>;
+    handle_type coro_handle_;
+
+    coro_ret(handle_type h)
+        : coro_handle_(h)
+    {
+    }
+    coro_ret(const coro_ret&) = delete;
+    coro_ret(coro_ret&& s)
+        : coro_handle_(s.coro_)
+    {
+        s.coro_handle_ = nullptr;
+    }
+    ~coro_ret()
+    {
+        if (coro_handle_)
+            coro_handle_.destroy();
+    }
+    coro_ret& operator=(const coro_ret&) = delete;
+    coro_ret& operator=(coro_ret&& s)
+    {
+        coro_handle_ = s.coro_handle_;
+        s.coro_handle_ = nullptr;
+        return *this;
+    }
+
+    bool move_next()
+    {
+        coro_handle_.resume();
+        return coro_handle_.done();
+    }
+
+    T get()
+    {
+        return coro_handle_.promise().return_data_;
+    }
+
+    struct promise_type
+    {
+        promise_type() = default;
+        ~promise_type() = default;
+
+        auto get_return_object()
+        {
+            return coro_ret<T>{handle_type::from_promise(*this)};
+        }
+        auto initial_suspend()
+        {
+            return std::suspend_never{};
+        }
+        void return_value(T v)
+        {
+            return_data_ = v;
+            return;
+        }
+        auto yield_value(T v)
+        {
+            return_data_ = v;
+            return std::suspend_always{};
+        }
+        auto final_suspend() noexcept
+        {
+            std::cout << "Finished the coro" << std::endl;
+            return std::suspend_always{};
+        }
+        void unhandled_exception()
+        {
+            std::exit(1);
+        }
+        //返回值
+        T return_data_;
+    };
+};
+
+
+coro_ret<int> yield_coroutine_count()
+{
+    int i = 0;
+    std::cout << "Stage 1" << std::endl;
+    co_yield 101;
+    std::cout << "Stage 2" << std::endl;
+    co_yield 202;
+    std::cout << "Stage 3" << std::endl;
+    co_yield 303;
+    std::cout << "Stage 4" << std::endl;
+    co_yield 404;
+    std::cout << "Stage 5" << std::endl;
+    co_return 505;
+    std::cout << "Stage end" << std::endl;
+}
+
+int test_coro_main3(int argc, char* argv[])
+{
+    bool done = false;
+    std::cout << "Start main()\n";
+    auto c_r = yield_coroutine_count();
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ret=") << c_r.get() << std::endl;
+    done = c_r.move_next();
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ret=") << c_r.get() << std::endl;
+    done = c_r.move_next();
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ret=") << c_r.get() << std::endl;
+    done = c_r.move_next();
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ret=") << c_r.get() << std::endl;
+    done = c_r.move_next();
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ret=") << c_r.get() << std::endl;
+
+    return 0;
+}

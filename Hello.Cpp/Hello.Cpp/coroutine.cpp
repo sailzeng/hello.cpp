@@ -385,6 +385,8 @@ sync<int> reply()
     co_return 42;
 }
 
+
+
 int test_coro_main(int argc, char* argv[])
 {
     std::cout << "Start main()\n";
@@ -455,10 +457,14 @@ struct coro_ret
         {
             return coro_ret<T>{handle_type::from_promise(*this)};
         }
+        //注意这个函数,如果返回std::suspend_never{}，就不挂起，
+        //返回std::suspend_always{} 挂起
         auto initial_suspend()
         {
-            return std::suspend_never{};
+            //return std::suspend_never{};
+            return std::suspend_always{};
         }
+        //co_return 后这个函数会被调用
         void return_value(T v)
         {
             return_data_ = v;
@@ -466,12 +472,13 @@ struct coro_ret
         }
         auto yield_value(T v)
         {
+            std::cout << "yield_value invoked." << std::endl;
             return_data_ = v;
             return std::suspend_always{};
         }
         auto final_suspend() noexcept
         {
-            std::cout << "Finished the coro" << std::endl;
+            std::cout << "final_suspend invoked." << std::endl;
             return std::suspend_always{};
         }
         void unhandled_exception()
@@ -481,23 +488,44 @@ struct coro_ret
         //返回值
         T return_data_;
     };
+
+
 };
+
+struct coro_await
+{
+    bool await_ready()
+    {
+        return false;
+    }
+    void await_suspend(std::coroutine_handle<> awaiting)
+    {
+        std::cout << "About to resume the awaiter" << std::endl;
+        awaiting.resume();
+    }
+    void await_resume()
+    {
+        return;
+    }
+};
+
+
 
 
 coro_ret<int> yield_coroutine_count()
 {
-    int i = 0;
-    std::cout << "Stage 1" << std::endl;
+    std::cout << "Coroutine co_await std::suspend_never" << std::endl;
+    co_await std::suspend_never{};
+    std::cout << "Coroutine co_await std::suspend_always" << std::endl;
+    co_await std::suspend_always{};
+    std::cout << "Coroutine stage 1 ,co_yield" << std::endl;
     co_yield 101;
-    std::cout << "Stage 2" << std::endl;
+    std::cout << "Coroutine stage 2 ,co_yield" << std::endl;
     co_yield 202;
-    std::cout << "Stage 3" << std::endl;
+    std::cout << "Coroutine stage 3 ,co_yield" << std::endl;
     co_yield 303;
-    std::cout << "Stage 4" << std::endl;
-    co_yield 404;
-    std::cout << "Stage 5" << std::endl;
+    std::cout << "Coroutine stage end, co_return" << std::endl;
     co_return 505;
-    std::cout << "Stage end" << std::endl;
 }
 
 int test_coro_main3(int argc, char* argv[])
@@ -505,15 +533,20 @@ int test_coro_main3(int argc, char* argv[])
     bool done = false;
     std::cout << "Start main()\n";
     auto c_r = yield_coroutine_count();
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ret=") << c_r.get() << std::endl;
+    //第一次停止因为initial_suspend 返回的是suspend_always
+    //此时没有进入Stage 1
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
     done = c_r.move_next();
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ret=") << c_r.get() << std::endl;
+    //此时是，co_await std::suspend_always{}
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
     done = c_r.move_next();
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ret=") << c_r.get() << std::endl;
+    //此时打印Stage 1
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
     done = c_r.move_next();
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ret=") << c_r.get() << std::endl;
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
     done = c_r.move_next();
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ret=") << c_r.get() << std::endl;
-
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
+    done = c_r.move_next();
+    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
     return 0;
 }

@@ -525,7 +525,7 @@ coro_ret<int> yield_coroutine_count()
     std::cout << "Coroutine stage 3 ,co_yield" << std::endl;
     co_yield 303;
     std::cout << "Coroutine stage end, co_return" << std::endl;
-    co_return 505;
+    co_return 808;
 }
 
 int test_coro_main3(int argc, char* argv[])

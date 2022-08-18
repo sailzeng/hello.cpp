@@ -550,3 +550,17 @@ int test_coro_main3(int argc, char* argv[])
     std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
     return 0;
 }
+
+//!
+coro_ret<int> aio_open(const char *pathname,
+                       int flags,
+                       int *handle)
+{
+
+    co_return 0;
+}
+
+coro_ret<int> aio_close(int *handle)
+{
+    co_return 0;
+}

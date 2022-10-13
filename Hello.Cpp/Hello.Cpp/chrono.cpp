@@ -99,6 +99,16 @@ int hello_chrono_clock(int argc, char* argv[])
     return 0;
 }
 
+int test_chrono_literals()
+{
+    using namespace std::chrono_literals;
+    auto d1 = 250ms;
+    std::chrono::milliseconds d2 = 1ms;
+    std::cout << "250ms = " << d1.count() << " milliseconds\n"
+        << "1s = " << d2.count() << " milliseconds\n";
+    return 0;
+}
+
 class ZCE_Chrono_HR_Timer
 {
 public:

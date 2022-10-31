@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 #include <string>
 #include <tuple>
@@ -188,7 +186,6 @@ int test_variadic3(int argc, char* argv[])
 
 //----------------------------------------------------------------
 
-
 // 转换数组为 tuple
 template<typename Array, std::size_t... I>
 auto a2t_impl(const Array& a, std::index_sequence<I...>)
@@ -201,8 +198,6 @@ auto a2t(const std::array<T, N> & a)
 {
     return a2t_impl(a, Indices{});
 }
-
-
 
 int test_index_sequence(int argc, char* argv[])
 {
@@ -250,7 +245,6 @@ int test_variadic4(int argc, char* argv[])
     return 0;
 }
 
-
 //----------------------------------------------------------------
 
 template <typename... TList>
@@ -283,6 +277,21 @@ int test_variadic5(int argc, char* argv[])
     return 0;
 }
 
+template <typename T>
+class call_constructor
+{
+    T* constructor()
+    {
+        return new(ptr_) T();
+    }
 
+    template<class... Args>
+    T* constructor(Args... args)
+    {
+        return new(ptr_) T(args...);
+    }
 
-
+protected:
+    //
+    char ptr_[1024];
+};

@@ -476,6 +476,7 @@ struct coro_ret
             return_data_ = v;
             return std::suspend_always{};
         }
+        //若 final_suspend 返回 std::suspend_always 则需要用户自行调用 handle.destroy() 进行销毁
         auto final_suspend() noexcept
         {
             std::cout << "final_suspend invoked." << std::endl;
@@ -488,29 +489,35 @@ struct coro_ret
         //返回值
         T return_data_;
     };
-
-
 };
 
-struct coro_await
+//https://lewissbaker.github.io/2017/11/17/understanding-operator-co-await
+
+template <typename P>
+struct await_aio
 {
+    await_aio()
+    {
+
+    }
+
     bool await_ready()
     {
         return false;
     }
-    void await_suspend(std::coroutine_handle<> awaiting)
+    void await_suspend(std::coroutine_handle<P> awaiting)
     {
-        std::cout << "About to resume the awaiter" << std::endl;
-        awaiting.resume();
+        std::cout << "await_suspend" << std::endl;
+        awaiting_ = awaiting;
     }
     void await_resume()
     {
         return;
     }
+
+    //
+    std::coroutine_handle<P> awaiting_;
 };
-
-
-
 
 coro_ret<int> yield_coroutine_count()
 {
@@ -535,32 +542,20 @@ int test_coro_main3(int argc, char* argv[])
     auto c_r = yield_coroutine_count();
     //第一次停止因为initial_suspend 返回的是suspend_always
     //此时没有进入Stage 1
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
+    std::cout << "Coroutine " << (done ? "is done " : "isn't done ") << "ret =" << c_r.get() << std::endl;
     done = c_r.move_next();
     //此时是，co_await std::suspend_always{}
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
+    std::cout << "Coroutine " << (done ? "is done " : "isn't done ") << "ret =" << c_r.get() << std::endl;
     done = c_r.move_next();
     //此时打印Stage 1
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
+    std::cout << "Coroutine " << (done ? "is done " : "isn't done ") << "ret =" << c_r.get() << std::endl;
     done = c_r.move_next();
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
+    std::cout << "Coroutine " << (done ? "is done " : "isn't done ") << "ret =" << c_r.get() << std::endl;
     done = c_r.move_next();
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
+    std::cout << "Coroutine " << (done ? "is done " : "isn't done ") << "ret =" << c_r.get() << std::endl;
     done = c_r.move_next();
-    std::cout << "Coroutine " << (done ? "is done" : "isn't done ") << "ret =" << c_r.get() << std::endl;
+    std::cout << "Coroutine " << (done ? "is done " : "isn't done ") << "ret =" << c_r.get() << std::endl;
     return 0;
 }
 
-//!
-coro_ret<int> aio_open(const char *pathname,
-                       int flags,
-                       int *handle)
-{
 
-    co_return 0;
-}
-
-coro_ret<int> aio_close(int *handle)
-{
-    co_return 0;
-}

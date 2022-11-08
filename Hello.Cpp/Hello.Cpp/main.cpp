@@ -6,26 +6,22 @@
 template< class O >
 class C_O
 {
-
 };
 
 template< class... T >
 class multiobjs_pool
 {
-
     //!
 
     //!
     std::tuple<C_O<T...> > pools_;
 };
 
-
-
 int main(int argc, char* argv[])
 {
     std::cout << "C++ __cplusplus:" << __cplusplus << std::endl;
     std::cout << "--------------------------------" << std::endl;
-    test_coro_main3(argc, argv);
+    hello_right_value_001(argc, argv);
     std::cout << "--------------------------------" << std::endl;
 
     /*

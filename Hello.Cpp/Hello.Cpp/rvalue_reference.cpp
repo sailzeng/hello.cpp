@@ -3,8 +3,6 @@
 #include <vector>
 #include <iostream>
 
-
-
 void process_value(int& i)
 {
     std::cout << "LValue processed: " << i << std::endl;
@@ -30,8 +28,6 @@ int hello_rvalue_1(int argc, char* argv[])
 
     return 0;
 }
-
-
 
 class Intvec
 {
@@ -102,7 +98,6 @@ private:
     size_t size_;
     int* data_;
 };
-
 
 //universal references(通用引用)
 
@@ -189,5 +184,162 @@ int hello_perfect_forward(int argc, char* argv[])
     perfectForward(c); // const lvalue ref
     perfectForward(std::move(d)); // const rvalue ref
 
+    return 0;
+}
+
+class RV_A
+{
+public:
+    RV_A()
+    {
+        std::cout << "RV_A() " << std::endl;
+    }
+    ~RV_A()
+    {
+        std::cout << "~RV_A() " << std::endl;
+    }
+    RV_A(int a)
+    {
+        std::cout << "RV_A(int a) " << std::endl;
+        a_ = a;
+    }
+    RV_A(const RV_A &o)
+    {
+        std::cout << "RV_A(const RV_A &o) " << std::endl;
+        a_ = o.a_;
+    }
+    RV_A(RV_A &&o)
+    {
+        std::cout << "RV_A(RV_A &&o) " << std::endl;
+        a_ = o.a_;
+        o.a_ = 0;
+    }
+
+    RV_A& operator= (const RV_A& o)
+    {
+        std::cout << "RV_A& operator = (const RV_A& o) " << std::endl;
+        a_ = o.a_;
+        return *this;
+    }
+    RV_A& operator= (RV_A&& o)
+    {
+        std::cout << "RV_A& operator= (RV_A&& o) " << std::endl;
+        a_ = o.a_;
+        o.a_ = 0;
+        return *this;
+    }
+public:
+    //
+    int a_ = 0;
+};
+
+template<typename T>
+std::string type_to_string() {
+#if defined(_MSC_VER)
+    std::string type_name{ __FUNCSIG__ };
+    // class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl type_to_string<int&>(void)
+    auto start_pos = type_name.find_first_of('<',
+                                             std::string(typeid(std::string).name()).size()) + 1;
+    auto end_pos = type_name.find_last_of('>');
+    return type_name.substr(start_pos, (end_pos - start_pos));
+#elif defined(__clang__)
+    std::string type_name{ __PRETTY_FUNCTION__ };
+    auto start_pos = type_name.find_first_of('=') + 2;
+    auto end_pos = type_name.find_first_of(']', start_pos);
+    return type_name.substr(start_pos, (end_pos - start_pos));
+
+#elif defined(__GNUC__)
+    std::string type_name{ __PRETTY_FUNCTION__ };
+    // std::__cxx11::string type_to_string() [with T = int&; std::__cxx11::string = std::__cxx11::basic_string<char>]
+    auto start_pos = type_name.find_first_of('=') + 2;
+    auto end_pos = type_name.find_first_of(';', start_pos);
+    return type_name.substr(start_pos, (end_pos - start_pos));
+#endif
+}
+
+void test_rv_001(const RV_A &o)
+{
+    std::cout << __func__ << "------------------------------" << std::endl;
+    RV_A a_1(o);
+    RV_A a_2(std::move(o));
+    std::cout << __func__ << "------------------------------" << std::endl;
+}
+
+void test_rv_002(RV_A &o)
+{
+    std::cout << __func__ << "------------------------------" << std::endl;
+    RV_A a_1(o);
+    RV_A a_2(std::move(o));
+    std::cout << __func__ << "------------------------------" << std::endl;
+}
+
+void test_rv_003(RV_A &&o)
+{
+    std::cout << __func__ << "------------------------------" << std::endl;
+    RV_A a_1(o);
+    RV_A a_2(std::move(o));
+    std::cout << __func__ << "------------------------------" << std::endl;
+}
+
+void test_rv_004(const RV_A &o)
+{
+    std::cout << __func__ << "------------------------------" << std::endl;
+    RV_A a_1 = o;
+    RV_A a_2(32);
+    a_2 = o;
+    RV_A a_3(64);
+    a_3 = std::move(o);
+    std::cout << __func__ << "------------------------------" << std::endl;
+}
+
+void test_rv_005(RV_A &o)
+{
+    std::cout << __func__ << "------------------------------" << std::endl;
+    RV_A a_1 = o;
+    RV_A a_2(32);
+    a_2 = o;
+    RV_A a_3(64);
+    a_3 = std::move(o);
+    std::cout << __func__ << "------------------------------" << std::endl;
+}
+
+void test_rv_006(RV_A &&o)
+{
+    std::cout << __func__ << "------------------------------" << std::endl;
+    std::cout << "o type :" << type_to_string<decltype(o)>() << std::endl;
+    std::cout << "o type :" << type_to_string<decltype(std::move(o))>() << std::endl;
+    RV_A a_1 = o;
+    RV_A a_2(32);
+    a_2 = o;
+    RV_A a_3(64);
+    a_3 = std::move(o);
+    std::cout << __func__ << "------------------------------" << std::endl;
+}
+
+void test_rv_007(RV_A &&o)
+{
+    std::cout << __func__ << "------------------------------" << std::endl;
+    std::cout << "o type :" << type_to_string<decltype(o)>() << std::endl;
+    RV_A a_1(o);
+    std::cout << __func__ << "------------------------------" << std::endl;
+}
+
+int hello_right_value_001([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
+{
+    RV_A a1(1024);
+    test_rv_001(a1);
+    RV_A a2(1024);
+    test_rv_002(a2);
+    RV_A a3(1024);
+    test_rv_003(std::move(a3));
+    RV_A a4(2048);
+    test_rv_004(a4);
+    RV_A a5(2048);
+    test_rv_005(a5);
+    RV_A a6(2048);
+    test_rv_006(std::move(a6));
+    RV_A a7(2048);
+    RV_A a8(std::move(a7));
+    test_rv_007(std::move(a7));
     return 0;
 }

@@ -2,6 +2,7 @@
 #include <queue>
 #include <vector>
 #include <iostream>
+#include <utility>
 
 void process_value(int& i)
 {
@@ -341,5 +342,107 @@ int hello_right_value_001([[maybe_unused]] int argc, [[maybe_unused]] char* argv
     RV_A a7(2048);
     RV_A a8(std::move(a7));
     test_rv_007(std::move(a7));
+    return 0;
+}
+
+class RV_B
+{
+public:
+    RV_B() = default;
+    ~RV_B() = default;
+
+    RV_B(int b)
+    {
+        std::cout << "RV_A(int a) " << std::endl;
+        b_ = b;
+    }
+    RV_B(const RV_B &o)
+    {
+        std::cout << "RV_B(const RV_B &o) " << std::endl;
+        b_ = o.b_;
+    }
+    RV_B(RV_B &&o)
+    {
+        std::cout << "RV_B(RV_B &&o) " << std::endl;
+        b_ = o.b_;
+        o.b_ = 0;
+    }
+public:
+    //
+    int b_ = 0;
+};
+
+void test_rv_001b(RV_B &&o1)
+{
+    RV_B b1(o1);     //Call RV_B(const RV_B &o)
+}
+
+void test_rv_002b(RV_B &&o2)
+{
+    RV_B b2(std::move(o2)); //Call RV_B(RV_B &&o)
+}
+
+int hello_right_value_002(int argc, char* argv[])
+{
+    RV_B b_1(1024);
+    test_rv_001b(std::move(b_1));
+    RV_B b_2(1024);
+    test_rv_002b(std::move(b_2));
+    return 0;
+}
+
+class RV_C
+{
+public:
+    RV_C() = default;
+    ~RV_C() = default;
+
+    RV_C(int c)
+    {
+        c_ = c;
+    }
+    RV_C(const RV_C &o)
+    {
+        c_ = o.c_;
+    }
+    RV_C(RV_C &&o)
+    {
+        c_ = o.c_;
+        o.c_ = 0;
+    }
+public:
+    //
+    int c_ = 0;
+};
+
+template<typename T>
+class rings
+{
+public:
+
+    void push_back(T&& value)
+    {
+        push_back_i(std::forward<T>(value));
+    }
+    void push_back(const T& value)
+    {
+        push_back_i(value);  //push_back 参数const RV_C&
+    }
+protected:
+    //让push_back_i 再次进行类型推导 U&& 成为为万能引用
+    template<typename U>
+    void push_back_i(U&& value)
+    {
+        rings_.push_back(std::forward<U>(value));
+    }
+    std::vector <T> rings_;
+};
+
+int hello_right_value_003(int argc, char* argv[])
+{
+    rings<RV_C> rings_c;
+    rings_c.push_back(RV_C(1024));
+    RV_C c_1(2048);
+    rings_c.push_back(c_1);   //会出错cannot convert argument 1 from 'const T' to 'T &&'
     return 0;
 }

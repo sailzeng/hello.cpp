@@ -67,4 +67,5 @@ int test_coro_main2(int argc, char* argv[]);
 int test_coro_main3(int argc, char* argv[]);
 
 int hello_right_value_001(int argc, char* argv[]);
+int hello_right_value_002(int argc, char* argv[]);
 int test_share_ptr_pool(int argc, char* argv[]);

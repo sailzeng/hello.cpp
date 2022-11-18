@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 {
     std::cout << "C++ __cplusplus:" << __cplusplus << std::endl;
     std::cout << "--------------------------------" << std::endl;
-    hello_right_value_002(argc, argv);
+    test_any2(argc, argv);
     std::cout << "--------------------------------" << std::endl;
 
     /*

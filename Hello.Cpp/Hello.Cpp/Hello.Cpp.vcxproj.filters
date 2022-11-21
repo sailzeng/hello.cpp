@@ -80,6 +80,9 @@
     <ClCompile Include="optional.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="type_traits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

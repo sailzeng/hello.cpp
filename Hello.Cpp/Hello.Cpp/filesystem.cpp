@@ -121,5 +121,15 @@ int hello_filesystem(int argc, char argv[])
     {
         std::cout << it.path().filename() << std::endl;
     }
+
+    fs::path pathToShow("C:\\Windows\\system.ini");
+    std::cout << "exists() = " << fs::exists(pathToShow) << "\n"
+        << "root_name() = " << pathToShow.root_name() << "\n"
+        << "root_path() = " << pathToShow.root_path() << "\n"
+        << "relative_path() = " << pathToShow.relative_path() << "\n"
+        << "parent_path() = " << pathToShow.parent_path() << "\n"
+        << "filename() = " << pathToShow.filename() << "\n"
+        << "stem() = " << pathToShow.stem() << "\n"
+        << "extension() = " << pathToShow.extension() << "\n";
     return 0;
 }

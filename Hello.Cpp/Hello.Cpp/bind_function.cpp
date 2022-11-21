@@ -36,9 +36,9 @@ int test_bind(int argc, char* argv[])
     auto f1 = std::bind(f, _2, _1, 42, std::cref(n), n);
     n = 10;
     f1(1, 2, 1001); // 1 is bound by _1, 2 is bound by _2, 1001 is unused
-                    // makes a call to f(2, 1, 42, n, 7)
+    // makes a call to f(2, 1, 42, n, 7)
 
-    // nested bind subexpressions share the placeholders
+// nested bind subexpressions share the placeholders
     auto f2 = std::bind(f, _3, std::bind(g, _3), _3, 4, 5);
     f2(10, 11, 12); // makes a call to f(12, g(12), 12, 4, 5);
 
@@ -274,4 +274,81 @@ public:
     }
 };
 
+//================================================================
 
+template<typename F>
+class Test001
+{
+public:
+    typedef std::function<F> func_type;
+
+    Test001(const func_type& fn)
+        : _fn(fn)
+    {}
+
+    template<typename ...Args>
+    auto operator ()(Args&& ...args)
+    {
+        return _fn(std::forward<Args>(args)...);
+    }
+
+private:
+    func_type _fn;
+};
+
+int test_function_001(int argc, char* argv[])
+{
+    std::function<void(const std::string&)> print = [](const std::string& name) {
+        std::cout << "Hello " << name << " !" << std::endl;
+    };
+
+    Test001<void(const std::string&)> t(print);
+
+    t("Jason");
+
+    return 0;
+}
+
+class Test002
+{
+public:
+
+    Test002()
+    {
+    }
+    ~Test002()
+    {
+    }
+
+    template<typename Fn, typename ...Args>
+    int activate(Fn&& fn, Args&& ...args)
+    {
+        std::function<Fn> func;
+        func = std::bind(*fn);
+        //func();
+        return 0;
+    }
+
+    template<typename Fn>
+    int activate001(std::function<Fn>&& fn)
+    {
+        std::function<Fn> func01;
+        //func01 = std::bind(fn);
+        return 0;
+    }
+
+    int a_002_ = 0;
+};
+
+int test_002_add(int a, int b)
+{
+    std::cout << "a+b = " << a + b << std::endl;
+    return 0;
+}
+
+int test_function_002(int argc, char* argv[])
+{
+    Test002 t_002;
+    t_002.activate001(&test_002_add);
+    return 0;
+}

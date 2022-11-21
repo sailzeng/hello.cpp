@@ -17,11 +17,25 @@ class multiobjs_pool
     std::tuple<C_O<T...> > pools_;
 };
 
+#include <bit>
+
+std::endian MY_ENDIAN = std::endian::native;
+std::endian LITTE_ENDIAN = std::endian::little;
+
+#if MY_ENDIAN == LITTE_ENDIAN
+uint32_t test_0001 = 1;
+#endif
+
+constexpr bool is_little_endian = (std::endian::native == std::endian::little);
+#if is_little_endian == true
+uint32_t test_0002 = 1;
+#endif
+
 int main(int argc, char* argv[])
 {
     std::cout << "C++ __cplusplus:" << __cplusplus << std::endl;
     std::cout << "--------------------------------" << std::endl;
-    hello_right_value_002(argc, argv);
+    test_any2(argc, argv);
     std::cout << "--------------------------------" << std::endl;
 
     /*

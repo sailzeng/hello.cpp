@@ -23,7 +23,7 @@
     <ClCompile Include="smart_pointer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tuple_optionl_any_variant.cpp">
+    <ClCompile Include="variant.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="variadic_template.cpp">
@@ -66,6 +66,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="promise_future.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="filesystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="andy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tuple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="optional.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="type_traits.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

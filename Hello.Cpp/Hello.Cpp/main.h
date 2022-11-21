@@ -33,6 +33,7 @@ int hello_progress_timer(int argc, char* argv[]);
 int test_unique_ptr(int argc, char* argv[]);
 
 int test_any(int argc, char* argv[]);
+int test_any2(int argc, char* argv[]);
 
 int test_variant(int argc, char* argv[]);
 int test_variant2(int argc, char* argv[]);

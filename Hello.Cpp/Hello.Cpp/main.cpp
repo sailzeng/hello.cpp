@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
 {
     std::cout << "C++ __cplusplus:" << __cplusplus << std::endl;
     std::cout << "--------------------------------" << std::endl;
-    test_any2(argc, argv);
+    hello_semaphore(argc, argv);
     std::cout << "--------------------------------" << std::endl;
 
     /*

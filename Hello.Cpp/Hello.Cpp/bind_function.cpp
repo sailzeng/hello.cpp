@@ -339,16 +339,3 @@ public:
 
     int a_002_ = 0;
 };
-
-int test_002_add(int a, int b)
-{
-    std::cout << "a+b = " << a + b << std::endl;
-    return 0;
-}
-
-int test_function_002(int argc, char* argv[])
-{
-    Test002 t_002;
-    t_002.activate001(&test_002_add);
-    return 0;
-}

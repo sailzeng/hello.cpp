@@ -327,7 +327,7 @@ protected:
 };
 };
 
-int test_atomic_rings(int argc, char* argv[])
+int hello_atomic_rings(int argc, char* argv[])
 {
     zce::lockfree::rings<int> abc;
     abc.initialize(100);
@@ -377,7 +377,7 @@ struct D
     int64_t j = 0;
 };
 
-int test_atomic_islockfree(int argc, char* argv[])
+int hello_atomic_islockfree(int argc, char* argv[])
 {
     std::cout << std::boolalpha << "A " << std::atomic<A>{}.is_lock_free() << std::endl;
     std::cout << std::boolalpha << "A " << std::atomic<A>::is_always_lock_free << std::endl;
@@ -394,6 +394,18 @@ int test_atomic_islockfree(int argc, char* argv[])
     //
     std::cout << std::boolalpha << "int *" << std::atomic<int *>{}.is_lock_free() << std::endl;
     std::cout << std::boolalpha << "int *" << std::atomic<int *>::is_always_lock_free << std::endl;
+
+    return 0;
+}
+
+int hello_atomic_size(int argc, char* argv[])
+{
+    std::cout << "std::atomic_bool size:" << sizeof(std::atomic_bool) << std::endl;
+    std::cout << "std::atomic_char size:" << sizeof(std::atomic_char) << std::endl;
+    std::cout << "std::atomic_short size:" << sizeof(std::atomic_short) << std::endl;
+    std::cout << "std::atomic_int size:" << sizeof(std::atomic_int) << std::endl;
+    std::cout << "std::atomic_long size:" << sizeof(std::atomic_long) << std::endl;
+    std::cout << "std::atomic_llong size:" << sizeof(std::atomic_llong) << std::endl;
 
     return 0;
 }

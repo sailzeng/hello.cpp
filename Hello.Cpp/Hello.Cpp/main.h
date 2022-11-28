@@ -21,9 +21,7 @@
 int hello_lambda(int argc, char* argv[]);
 
 int hello_chrono_duration(int argc, char* argv[]);
-
 int hello_chrono_clock(int argc, char* argv[]);
-
 int hello_chrono_timepoint(int argc, char* argv[]);
 
 int hello_align(int argc, char* argv[]);
@@ -49,8 +47,9 @@ int test_variadic3(int argc, char* argv[]);
 int test_variadic4(int argc, char* argv[]);
 int test_variadic5(int argc, char* argv[]);
 
-int test_atomic_rings(int argc, char* argv[]);
-int test_atomic_islockfree(int argc, char* argv[]);
+int hello_atomic_rings(int argc, char* argv[]);
+int hello_atomic_islockfree(int argc, char* argv[]);
+int hello_atomic_size(int argc, char* argv[]);
 
 int test_thread_local(int argc, char* argv[]);
 

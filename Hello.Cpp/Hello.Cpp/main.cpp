@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
 {
     std::cout << "C++ __cplusplus:" << __cplusplus << std::endl;
     std::cout << "--------------------------------" << std::endl;
-    hello_semaphore(argc, argv);
+    hello_atomic_size(argc, argv);
     std::cout << "--------------------------------" << std::endl;
 
     /*

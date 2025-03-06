@@ -1,6 +1,9 @@
 // Hello.Cpp.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 #include <iostream>
+#include <iostream>
+#include <intrin.h>
+
 #include "main.h"
 
 template< class O >
@@ -19,23 +22,23 @@ class multiobjs_pool
 
 #include <bit>
 
-std::endian MY_ENDIAN = std::endian::native;
-std::endian LITTE_ENDIAN = std::endian::little;
-
-#if MY_ENDIAN == LITTE_ENDIAN
-uint32_t test_0001 = 1;
-#endif
-
-constexpr bool is_little_endian = (std::endian::native == std::endian::little);
-#if is_little_endian == true
-uint32_t test_0002 = 1;
-#endif
+//std::endian MY_ENDIAN = std::endian::native;
+//std::endian LITTE_ENDIAN = std::endian::little;
+//
+//#if MY_ENDIAN == LITTE_ENDIAN
+//uint32_t test_0001 = 1;
+//#endif
+//
+//constexpr bool is_little_endian = (std::endian::native == std::endian::little);
+//#if is_little_endian == true
+//uint32_t test_0002 = 1;
+//#endif
 
 int main(int argc, char* argv[])
 {
     std::cout << "C++ __cplusplus:" << __cplusplus << std::endl;
     std::cout << "--------------------------------" << std::endl;
-    hello_atomic_size(argc, argv);
+    hello_regex_1(argc, argv);
     std::cout << "--------------------------------" << std::endl;
 
     /*
@@ -71,3 +74,39 @@ int main(int argc, char* argv[])
 //   4. Use the Error List window to view errors
 //   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
 //   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+
+//size_t i = 0;
+//size_t j = 0;
+//for (i = 1; i < 102400; i++)
+//{
+//    j = i * 5 + 4;
+//    if (j % 6 == 5 && j % 7 == 6)
+//    {
+//        break;
+//    }
+//}
+//if (i != 102400)
+//{
+//    std::cout << j << std::endl;
+//}
+//else
+//{
+//    std::cout << "not " << std::endl;
+//}
+//
+//using namespace std;
+//
+//unsigned long mask = 12;
+//unsigned long index;
+//unsigned char isNonzero;
+//
+//cout << "Enter a positive integer as the mask: " << flush;
+//isNonzero = _BitScanReverse(&index, mask);
+//if (isNonzero)
+//{
+//    cout << "Mask: " << mask << " Index: " << index << endl;
+//}
+//else
+//{
+//    cout << "No set bits found.  Mask is zero." << endl;
+//}

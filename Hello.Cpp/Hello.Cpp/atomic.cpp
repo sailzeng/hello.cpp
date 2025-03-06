@@ -13,7 +13,8 @@ public:
 
     void lock()
     {
-        while (locked_flag_.test_and_set()) {
+        while (locked_flag_.test_and_set())
+        {
             if (_SleepWhenAcquireFailedInMicroSeconds == size_t(-1))
             {
                 std::this_thread::yield();
@@ -41,7 +42,8 @@ public:
         while (!locked_flag_.compare_exchange_strong(exp, true))
         {
             exp = false;
-            if (_SleepWhenAcquireFailedInMicroSeconds == size_t(-1)) {
+            if (_SleepWhenAcquireFailedInMicroSeconds == size_t(-1))
+            {
                 std::this_thread::yield();
             }
             else if (_SleepWhenAcquireFailedInMicroSeconds != 0)
@@ -400,7 +402,8 @@ int hello_atomic_islockfree(int argc, char* argv[])
 
 int hello_atomic_size(int argc, char* argv[])
 {
-    std::cout << "std::atomic_bool size:" << sizeof(std::atomic_bool) << std::endl;
+    std::cout << "std::atomic_flag size:" << sizeof(std::atomic_flag) << std::endl; //4
+    std::cout << "std::atomic_bool size:" << sizeof(std::atomic_bool) << std::endl; //1
     std::cout << "std::atomic_char size:" << sizeof(std::atomic_char) << std::endl;
     std::cout << "std::atomic_short size:" << sizeof(std::atomic_short) << std::endl;
     std::cout << "std::atomic_int size:" << sizeof(std::atomic_int) << std::endl;

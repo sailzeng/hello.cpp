@@ -71,3 +71,6 @@ int hello_right_value_002(int argc, char* argv[]);
 int test_share_ptr_pool(int argc, char* argv[]);
 
 int hello_semaphore(int argc, char* argv[]);
+
+int hello_regex_1(int argc, char* argv[]);
+int hello_regex_2(int argc, char* argv[]);

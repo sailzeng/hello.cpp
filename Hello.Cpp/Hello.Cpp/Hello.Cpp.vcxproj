@@ -169,6 +169,7 @@
     <ClCompile Include="noexcept_final_override.cpp" />
     <ClCompile Include="optional.cpp" />
     <ClCompile Include="priority_queue.cpp" />
+    <ClCompile Include="regex.cpp" />
     <ClCompile Include="rvalue_reference.cpp" />
     <ClCompile Include="semaphore.cpp" />
     <ClCompile Include="smart_pointer.cpp" />

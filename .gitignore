@@ -58,6 +58,8 @@ log
 bin
 lib
 log
+.vs
 .vscode
 Debug
 Release
+
